@@ -1,4 +1,4 @@
-FROM ubi8/python-36
+FROM python:3.6
 
 ENV FLASK_APP="currencies.py"
 

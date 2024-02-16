@@ -8,7 +8,8 @@ RUN mvn clean dependency:resolve
 
 # Build native image
 COPY src /usr/src/app/src
-RUN mvn clean package -Pnative
+RUN mvn clean package 
+#-Pnative
 
 ## Stage 2 : create the docker final image
 FROM registry.access.redhat.com/ubi8/ubi-minimal
