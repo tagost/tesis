@@ -10,4 +10,6 @@ services:
       - DATABASE_URL=${DATABASE_URL}
       - AUTH_API_URL=${AUTH_API_URL}
       - FLASK_APP=run.py
+    volumes:
+      - ./:/app
 
