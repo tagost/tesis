@@ -1,0 +1,7 @@
+# requirements.txt
+Flask
+Flask-SQLAlchemy
+Flask-Migrate
+requests
+psycopg2-binary
+python-dotenv

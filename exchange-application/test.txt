@@ -1,7 +1,0 @@
-hola
-<<<<<<< HEAD
-
-camibos
-=======
-hola 2
->>>>>>> 5091f9f7db8c783e4834143bab145101fbd1cff3

@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:13
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: authdb
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./db_data:/var/lib/postgresql/data
+
+  app:
+    build: .
+    environment:
+      PORT: 3000
+      DB_USER: root
+      DB_HOST: db
+      DB_NAME: authdb
+      DB_PASSWORD: root
+      DB_PORT: 5432
+      JWT_SECRET_KEY: your-secret-key
+      EMAIL_HOST: in-v3.mailjet.com
+      EMAIL_PORT: 587
+      EMAIL_USER: fdfc2eee90040b4f3292700151f061e3
+      EMAIL_PASS: 8b9492cd5b76ccbeb9e60b4ea7c351be
+      EMAIL_FROM: admin@tagost.shop
+      RESET_PASSWORD_URL: https://api.tagost.com/reset-password
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+    depends_on:
+      - db

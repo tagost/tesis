@@ -1,0 +1,108 @@
+<!-- public/documentation.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>API Documentation</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      padding: 0;
+      line-height: 1.6;
+    }
+    h1, h2, h3 {
+      color: #333;
+    }
+    pre {
+      background: #f4f4f4;
+      padding: 10px;
+      border: 1px solid #ddd;
+    }
+    code {
+      color: #c7254e;
+    }
+  </style>
+</head>
+<body>
+  <h1>API Documentation</h1>
+  <h2>Endpoints</h2>
+  
+  <h3>Register</h3>
+  <p><strong>POST /register</strong></p>
+  <p>Registers a new user.</p>
+  <pre>
+  {
+    "username": "string",
+    "email": "string",
+    "password": "string"
+  }
+  </pre>
+
+  <h3>Login</h3>
+  <p><strong>POST /login</strong></p>
+  <p>Logs in a user and returns a JWT token.</p>
+  <pre>
+  {
+    "username": "string",
+    "password": "string"
+  }
+  </pre>
+
+  <h3>Verify Token</h3>
+  <p><strong>GET /verify-token</strong></p>
+  <p>Verifies the provided JWT token.</p>
+  <pre>
+  Headers: {
+    "Authorization": "Bearer &lt;token&gt;"
+  }
+  </pre>
+
+  <h3>Current User</h3>
+  <p><strong>GET /current-user</strong></p>
+  <p>Returns the current authenticated user.</p>
+  <pre>
+  Headers: {
+    "Authorization": "Bearer &lt;token&gt;"
+  }
+  </pre>
+
+  <h3>Active Tokens</h3>
+  <p><strong>GET /active-tokens</strong></p>
+  <p>Returns the list of active tokens.</p>
+  <pre>
+  Headers: {
+    "Authorization": "Bearer &lt;token&gt;"
+  }
+  </pre>
+
+  <h3>Forgot Password</h3>
+  <p><strong>POST /forgot-password</strong></p>
+  <p>Sends a password reset link to the provided email.</p>
+  <pre>
+  {
+    "email": "string"
+  }
+  </pre>
+
+  <h3>Reset Password</h3>
+  <p><strong>POST /reset-password</strong></p>
+  <p>Resets the password using the provided token and new password.</p>
+  <pre>
+  {
+    "token": "string",
+    "newPassword": "string"
+  }
+  </pre>
+
+  <h3>Logout</h3>
+  <p><strong>POST /logout</strong></p>
+  <p>Logs out the current user.</p>
+  <pre>
+  Headers: {
+    "Authorization": "Bearer &lt;token&gt;"
+  }
+  </pre>
+</body>
+</html>
