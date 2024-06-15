@@ -3,7 +3,7 @@
 Copyright (c) 2019 - present AppSeed.us
 """
 import requests
-from flask import render_template, redirect, request, url_for
+from flask import render_template, redirect, request, url_for,session
 from flask_login import (
     current_user,
     login_user,
@@ -42,15 +42,23 @@ def login():
         # read form data
         username = request.form['username']
         password = request.form['password']
+        data = {
+            'username': username,
+            'password': password
+        }
 
-        # Locate user
-        user = Users.query.filter_by(username=username).first()
+        #Chek username and password
 
-        # Check the password
-        if user and verify_pass(password, user.password):
+        response = requests.post('http://192.168.0.150:3000/api/login', json=data)
+        if response.status_code == 200:
+            print(response.json().get('token'))
+            token = response.json().get('token')
+            user = Users(id=1, username=username, token=token)
+            session['user'] = {'id': user.id, 'username': user.username, 'token': user.token}
 
             login_user(user)
-            return redirect(url_for('authentication_blueprint.route_default'))
+            return redirect(url_for('home_blueprint.index'))
+
 
         # Something (user or pass) is not ok
         return render_template('accounts/login.html',
@@ -60,6 +68,7 @@ def login():
     if not current_user.is_authenticated:
         return render_template('accounts/login.html',
                                form=login_form)
+                               
     return redirect(url_for('home_blueprint.index'))
 
 
