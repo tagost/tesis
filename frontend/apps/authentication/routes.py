@@ -2,7 +2,7 @@
 """
 Copyright (c) 2019 - present AppSeed.us
 """
-import requests
+import requests, os
 from flask import render_template, redirect, request, url_for,session
 from flask_login import (
     current_user,
@@ -18,7 +18,7 @@ from apps.authentication.forms import LoginForm, CreateAccountForm
 from apps.authentication.models import Users
 
 from apps.authentication.util import verify_pass
-
+url = os.getenv('AUTH_API_URL')
 @blueprint.route('/')
 def route_default():
     return redirect(url_for('authentication_blueprint.login'))
@@ -48,8 +48,8 @@ def login():
         }
 
         #Chek username and password
-
-        response = requests.post('http://192.168.0.150:3000/api/login', json=data)
+        
+        response = requests.post(f'{url}/api/login', json=data)
         if response.status_code == 200:
             print(response.json().get('token'))
             token = response.json().get('token')
@@ -87,7 +87,7 @@ def register():
         }
         # Check usename exists
         #user = Users.query.filter_by(username=username).first()
-        response = requests.post('http://192.168.0.150:3000/api/register', json=data)
+        response = requests.post(f'{url}/api/register', json=data)
         if response.status_code == 200:
             message = response.json().get('message')
             return render_template('accounts/register.html',

@@ -1,14 +1,17 @@
 version: '3.8'
 services:
-  appseed-app:
-    container_name: appseed_app
+  frontend_service:
+    container_name: frontend_container
+    image: frontend_image:v1.0.0
     restart: always
     build: .
+    environment:
+      - AUTH_API_URL=http://192.168.0.150:3000
     networks:
       - db_network
       - web_network
-  nginx:
-    container_name: nginx
+  nginx_service:
+    container_name: nginx_container
     restart: always
     image: "nginx:latest"
     ports:
@@ -18,7 +21,7 @@ services:
     networks:
       - web_network
     depends_on: 
-      - appseed-app
+      - frontend_service
 networks:
   db_network:
     driver: bridge
